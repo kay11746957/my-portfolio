@@ -18,15 +18,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
 
-      - name: Install pnpm
+      - name: Install pnpm globally
         run: npm install -g pnpm
 
-      - name: Debug PATH and pnpm location
-        run: |
-          echo "PATH: $PATH"
-          which pnpm || echo "pnpm not found in PATH"
+      - name: Add pnpm to PATH
+        run: echo "$(npm prefix -g)/bin" >> $GITHUB_PATH
+
+      - name: Verify pnpm installation
+        run: which pnpm
 
       - name: Install dependencies
         run: pnpm install
