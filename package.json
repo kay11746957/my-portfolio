@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "tailwind-init": "tailwindcss init -p"
+    "tailwind-init": "tailwindcss init -p",
+    "typecheck": "tsc -b"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
