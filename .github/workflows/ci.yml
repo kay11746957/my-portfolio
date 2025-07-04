@@ -20,8 +20,13 @@ jobs:
           node-version: 20
           cache: 'pnpm'
 
-      - name: Enable pnpm with Corepack
-        run: corepack enable pnpm
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Debug PATH and pnpm location
+        run: |
+          echo "PATH: $PATH"
+          which pnpm || echo "pnpm not found in PATH"
 
       - name: Install dependencies
         run: pnpm install
