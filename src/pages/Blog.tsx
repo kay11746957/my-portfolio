@@ -14,7 +14,7 @@ export default function Blog() {
         setPosts(data.posts);
         setLoading(false);
       })
-      .catch((err) => {
+      .catch(() => {
         setError("Failed to fetch posts");
         setLoading(false);
       });
