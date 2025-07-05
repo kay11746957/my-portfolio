@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { wisp } from "../wisp/client";
-import { Post } from "@wisp-cms/client";
-import { WispProvider, WispRichText } from "@wisp-cms/react-custom-component";
+import { WispComponent } from "@wisp-cms/react-custom-component";
 
 export default function BlogPost() {
-  const [post, setPost] = useState<Post | null>(null);
+  const [post, setPost] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { slug } = useParams<{ slug: string }>();
@@ -13,8 +12,8 @@ export default function BlogPost() {
   useEffect(() => {
     if (!slug) return;
     wisp
-      .getPost(slug)
-      .then((data) => {
+      .getPostBySlug(slug)
+      .then((data: any) => {
         setPost(data);
         setLoading(false);
       })
@@ -37,11 +36,6 @@ export default function BlogPost() {
   }
 
   return (
-    <WispProvider components={{}}>
-      <div>
-        <h1>{post.title}</h1>
-        <WispRichText json={post.body} />
-      </div>
-    </WispProvider>
+    <WispComponent components={{}} content={post.body} />
   );
 }

@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import { wisp } from "../wisp/client";
-import { Post } from "@wisp-cms/client";
 
 export default function Blog() {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     wisp
       .getPosts()
-      .then((data) => {
+      .then((data: any) => {
         setPosts(data.posts);
         setLoading(false);
       })
@@ -32,7 +31,7 @@ export default function Blog() {
     <div>
       <h1>Blog</h1>
       <ul>
-        {posts.map((post) => (
+        {posts.map((post: any) => (
           <li key={post.slug}>
             <a href={`/blog/${post.slug}`}>{post.title}</a>
           </li>
