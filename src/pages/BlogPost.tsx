@@ -12,13 +12,16 @@ export default function BlogPost() {
 
   useEffect(() => {
     if (!slug) return;
+    console.log("Fetching post with slug:", slug);
     wisp
       .getPost(slug)
       .then((data: GetPostResult) => {
+        console.log("Received post data:", data);
         setPost(data.post);
         setLoading(false);
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error("Error fetching post:", err);
         setError("Failed to fetch post");
         setLoading(false);
       });
