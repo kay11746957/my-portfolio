@@ -1,0 +1,47 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { wisp } from "../wisp/client";
+import { Post } from "@wisp-cms/client";
+import { WispProvider, WispRichText } from "@wisp-cms/react-custom-component";
+
+export default function BlogPost() {
+  const [post, setPost] = useState<Post | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const { slug } = useParams<{ slug: string }>();
+
+  useEffect(() => {
+    if (!slug) return;
+    wisp
+      .getPost(slug)
+      .then((data) => {
+        setPost(data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setError("Failed to fetch post");
+        setLoading(false);
+      });
+  }, [slug]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (!post) {
+    return <div>Post not found.</div>;
+  }
+
+  return (
+    <WispProvider components={{}}>
+      <div>
+        <h1>{post.title}</h1>
+        <WispRichText json={post.body} />
+      </div>
+    </WispProvider>
+  );
+}
