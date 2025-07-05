@@ -6,9 +6,13 @@ export interface PostListItem {
 }
 
 export interface PostDetail extends PostListItem {
-  body: string; // Body is present when fetching a single post
+  content: string; // Changed from body to content
 }
 
 export interface PostsResponse {
   posts: PostListItem[];
+}
+
+export interface GetPostResult {
+  post: PostDetail | null; // Post can be null
 }

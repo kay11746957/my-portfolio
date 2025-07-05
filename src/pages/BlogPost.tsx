@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { wisp } from "../wisp/client";
 import { ContentWithCustomComponents } from "@wisp-cms/react-custom-component";
-import type { PostDetail } from "../types/wisp";
+import type { PostDetail, GetPostResult } from "../types/wisp";
 
 export default function BlogPost() {
   const [post, setPost] = useState<PostDetail | null>(null);
@@ -14,8 +14,8 @@ export default function BlogPost() {
     if (!slug) return;
     wisp
       .getPost(slug)
-      .then((data: any) => {
-        setPost(data as PostDetail);
+      .then((data: GetPostResult) => {
+        setPost(data.post);
         setLoading(false);
       })
       .catch(() => {
@@ -39,7 +39,7 @@ export default function BlogPost() {
   return (
     <div>
       <h1>{post.title}</h1>
-      <ContentWithCustomComponents content={post.body} customComponents={{}} />
+      <ContentWithCustomComponents content={post.content} customComponents={{}} />
     </div>
   );
 }
