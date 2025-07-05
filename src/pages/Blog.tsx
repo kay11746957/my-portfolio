@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { wisp } from "../wisp/client";
-import { Post, PostsResponse } from "../types/wisp";
+import type { PostListItem, PostsResponse } from "../types/wisp";
 
 export default function Blog() {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<PostListItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -32,7 +32,7 @@ export default function Blog() {
     <div>
       <h1>Blog</h1>
       <ul>
-        {posts.map((post: Post) => (
+        {posts.map((post: PostListItem) => (
           <li key={post.slug}>
             <a href={`/blog/${post.slug}`}>{post.title}</a>
           </li>

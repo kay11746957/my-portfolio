@@ -1,9 +1,14 @@
-export interface Post {
+export interface PostListItem {
+  id: string;
   slug: string;
   title: string;
-  body: string; // Assuming body is HTML string based on docs
+  publishedAt: Date | null;
+}
+
+export interface PostDetail extends PostListItem {
+  body: string; // Body is present when fetching a single post
 }
 
 export interface PostsResponse {
-  posts: Post[];
+  posts: PostListItem[];
 }
